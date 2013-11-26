@@ -119,6 +119,23 @@ class FullScreenApp():
 		self.setMarker(self.waiting_screen_start)
 		
 		self.parent.after(self.waiting_screen_time, self.questionScreen)
+		
+	def feedbackScreen(self):
+		self.clearScreen()
+			
+		# prepare containers
+		self.top_frame = Frame(self.main_container, background=self.bg_color)
+		self.bottom_frame = Frame(self.main_container, background=self.bg_color)
+		self.top_frame.pack(side="top", fill="both", expand=True)
+		self.bottom_frame.pack(side="bottom", fill="both", expand=True)
+		
+		# show text label
+		self.textLabel = Label(self.bottom_frame, text="The next Question will appear shortly.",
+							font=("Helvetica", 30), background=self.bg_color)
+		self.textLabel.pack(expand="False")
+		
+		self.startButton = Button(self.bottom_frame, text="Next Question", command=self.questionScreen)
+#		self.startButton.pack()
 	
 	def questionScreen(self):
 		self.clearScreen()

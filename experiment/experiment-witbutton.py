@@ -41,7 +41,7 @@ class FullScreenApp():
 		self.bottom_frame.pack(side="bottom", fill="y", expand=True)
 		
 		# add start button
-		self.startButton = Button(self.bottom_frame, text="Start", command=lambda: self.waitingScreen(0))
+		self.startButton = Button(self.bottom_frame, text="Start", command=self.waitingScreen)
 		self.startButton.pack()
 		
 	def answerScreen(self, afterID):
@@ -95,7 +95,7 @@ class FullScreenApp():
 				
 			self.answerOptions[i].pack(expand=False)
 		
-	def waitingScreen(self, nextQuestionID=0):
+	def waitingScreen(self):
 		self.clearScreen()
 		
 		# increment to next question
@@ -111,14 +111,23 @@ class FullScreenApp():
 		self.bottom_frame.pack(side="bottom", fill="both", expand=True)
 		
 		# show text label
-		self.textLabel = Label(self.bottom_frame, text="The next Question will appear shortly.",
+		self.textLabel = Label(self.bottom_frame, text="Click to see the next question.",
 							font=("Helvetica", 30), background=self.bg_color)
-		self.textLabel.pack(expand="False")
+#		self.textLabel.pack(expand="False")
+		
+		# add start button
+		self.startButton = Button(self.bottom_frame, text="Next Question", command=self.questionScreen)
+#		self.startButton.pack()
+		
+		if (self.curr_questionID % 2 == 0):
+			self.textLabel.pack(expand="False")
+			self.startButton.pack()
+		else:
+			self.startButton.pack()
+			self.textLabel.pack(expand="False")
 		
 		# set marker
-		self.setMarker(self.waiting_screen_start)
-		
-		self.parent.after(self.waiting_screen_time, self.questionScreen)
+		self.setMarker(self.waiting_screen_start)		
 	
 	def questionScreen(self):
 		self.clearScreen()
